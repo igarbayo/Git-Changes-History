@@ -1,0 +1,111 @@
+ # Práctica 6. Git. Tarea Individual
+ # Ignacio Garbayo. Ingeniería del Software
+ 
+ 
+ # 1. Crear un repositorio local con la estructura pedida.
+ git init
+ mkdir Proyectos
+ mkdir Procesos
+ cd Proyectos
+ mkdir Prj1
+ cd ..
+ cd Procesos
+ mkdir ControlDeCambios
+ cd ..
+ touch historia.txt
+ git add .
+ 
+ 
+ # 2. En Control de Cambios debe estar la versión inicial de la descripción del proceso de control de cambios con las plantillas en blanco (podéis definir
+ # la estructura de subdirectorios que necesitéis en ese directorio). En la raíz del repositorio incluiremos un archivo historia.txt con los comandos de git
+ # que vayamos utilizando en el transcurso de la práctica. Estos comandos deben estar correctamente comentados para proporcionar contexto sobre su propósito
+ # y aplicación.
+ cd ..
+ touch historia.txt
+ 
+ # 3. Actualizar el repositorio local, recordar utilizar comentarios descriptivos en el proceso
+ # 4. Utiliza una etiqueta anotada para este estado y márcalo como la versión “R1”. 
+ git add .
+ git commit -m "R1"
+ 
+ # 5. Creamos una rama denominada “Mejoras” en el que incluimos el fichero pdf con las propuestas de mejora en la carpeta de ControlDeCambios. 
+ git checkout master
+ git checkout -b Mejoras
+ mv Mejoras.pdf Procesos/ControlDeCambios/
+ git add ControlDeCambios/Mejoras.pdf
+ git add Procesos/ControlDeCambios/Mejoras.pdf
+ 
+ # 6. Modificamos el documento de Word para que sea la versión que habíamos llamado v2. Si es necesario también modificaremos los ficheros de las
+ # plantillas. 
+ cd Procesos/ControlDeCambios
+ ls
+ rm DP_ControldeCambios_Grupo4\[4\]-v1.docx 
+ cd ..
+ ls
+ mv DP_ControldeCambios_Grupo4\[4\]-v2.docx Procesos/ControlDeCambios
+ 
+ # 7. Fundimos la rama con el master/main aceptando todos los cambios realizados en ella. Posteriormente, borramos la rama “Mejoras”.
+ git checkout master
+ git merge Mejoras
+ git branch -d Mejoras
+ 
+ # 8. Tras realizar el merge, borramos el pdf de las propuestas de mejora para que en el master/main sólo quede la versión correcta del documento con la
+ # gestión del cambio y sus plantillas. 
+ cd Procesos/ControlDeCambios
+ ls
+ rm Mejoras.pdf
+ 
+ # 9. Actualizamos el repositorio y etiquetamos la versión actual con la versión R2.
+ cd ..
+ git add .
+ git commit -m "R2"
+ 
+ # 10. Ahora directamente en la rama principal sustituimos la versión 2 del proceso con la versión 3 y actualizamos el repositorio local.
+ ls
+ mv DP_ControldeCambios_Grupo4\[4\]-v3.docx Procesos/ControlDeCambios
+ cd Procesos/ControlDeCambios
+ ls
+ rm DP_ControldeCambios_Grupo4\[4\]-v2.docx
+ 
+ # 11. Nos hemos dado cuenta de que hemos olvidado incluir las plantillas asociadas a la versión del proceso actualizada, por lo que decidimos devolver la
+ # rama principal al estado anterior, actualizar con la versión 3 y sus plantillas y marcamos con la etiqueta R3.
+ git add .
+ git commit
+ git commit -m "R3 Mal"
+ git log
+ git reset --hard 171ef5a9509c8b1b6e463b40c27e2c55ff0c026c
+ mv DP_ControldeCambios_Grupo4\[4\]-v3.docx Procesos/ControlDeCambios
+ cd ..
+ mv DP_ControldeCambios_Grupo4\[4\]-v3.docx Procesos/ControlDeCambios
+ rm DP_ControldeCambios_Grupo4\[4\]-v2.docx
+ cd Procesos/ControlDeCambios
+ rm DP_ControldeCambios_Grupo4\[4\]-v2.docx
+ cd ..
+ git add .
+ git commit -m "R3"
+ 
+ # 12. Push la rama principal y los tags a un repositorio en Github.
+ git branch
+ git pull origin master
+ git remote add origin https://github.com/igarbayo/Practica-6-ENSO---Tarea-Individual
+ git remote -v
+ git push -u origin master
+ 
+ # 13. Después de un tiempo, decidimos hacer cambios adicionales. Antes de nada y por si ha habido cambios en el repositorio remoto, nos aseguramos de que
+ # la rama principal está actualizada.
+ git pull origin master
+ 
+ 
+ # 14. Hemos añadido el comando anterior a historia.txt. Queremos comprobar las diferencias de este fichero respecto a la versión en el repositorio.
+ git diff historia.txt origin/master/historia.txt
+ 
+ # 15. Actualizar el repositorio remoto con todos los cambios.
+ git add .
+ git commit -m "R4"
+ git push -u origin master
+ 
+ 
+ 
+ 
+ 
+
