@@ -29,10 +29,12 @@
  git commit -m "R1"
  
  # 5. Creamos una rama denominada “Mejoras” en el que incluimos el fichero pdf con las propuestas de mejora en la carpeta de ControlDeCambios. 
+ # Nos movemos a rama master
  git checkout master
+ # Creamos la rama
  git checkout -b Mejoras
  mv Mejoras.pdf Procesos/ControlDeCambios/
- git add ControlDeCambios/Mejoras.pdf
+ # Añadimos el archivo a la nueva versión de git para hacer commit
  git add Procesos/ControlDeCambios/Mejoras.pdf
  
  # 6. Modificamos el documento de Word para que sea la versión que habíamos llamado v2. Si es necesario también modificaremos los ficheros de las
@@ -46,7 +48,9 @@
  
  # 7. Fundimos la rama con el master/main aceptando todos los cambios realizados en ella. Posteriormente, borramos la rama “Mejoras”.
  git checkout master
+ # Fusionamos la rama
  git merge Mejoras
+ # Eliminamos, con -d, la rama especificada
  git branch -d Mejoras
  
  # 8. Tras realizar el merge, borramos el pdf de las propuestas de mejora para que en el master/main sólo quede la versión correcta del documento con la
@@ -71,8 +75,11 @@
  # rama principal al estado anterior, actualizar con la versión 3 y sus plantillas y marcamos con la etiqueta R3.
  git add .
  git commit
+ # Asignamos una etiqueta arbitrario de versión
  git commit -m "R3 Mal"
+ # Abrimos el historia de versiones para averiguar el código hash de R2
  git log
+ # Hacemos reset con el código hash de R2
  git reset --hard 171ef5a9509c8b1b6e463b40c27e2c55ff0c026c
  mv DP_ControldeCambios_Grupo4\[4\]-v3.docx Procesos/ControlDeCambios
  cd ..
@@ -86,6 +93,7 @@
  
  # 12. Push la rama principal y los tags a un repositorio en Github.
  git branch
+ # Hacemos pull por si hubiese algo en el repositorio en la nube (en adelante, origin)
  git pull origin master
  git remote add origin https://github.com/igarbayo/Practica-6-ENSO---Tarea-Individual
  git remote -v
@@ -97,6 +105,7 @@
  
  
  # 14. Hemos añadido el comando anterior a historia.txt. Queremos comprobar las diferencias de este fichero respecto a la versión en el repositorio.
+ # Muestra la difeencia entre el archivo local y el archivo en la nube (remoto)
  git diff historia.txt origin/master/historia.txt
  
  # 15. Actualizar el repositorio remoto con todos los cambios.
